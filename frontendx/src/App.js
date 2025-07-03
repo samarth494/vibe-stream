@@ -8,8 +8,8 @@ function App() {
   const [step, setStep] = useState(0);
 
   useEffect(() => {
-    const timer1 = setTimeout(() => setStep(1), 7000);  // After 7s -> welcome
-    const timer2 = setTimeout(() => setStep(2), 10000); // After 10s -> blank
+    const timer1 = setTimeout(() => setStep(1), 7000);  
+    const timer2 = setTimeout(() => setStep(2), 10000); 
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
