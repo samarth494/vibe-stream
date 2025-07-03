@@ -6,16 +6,16 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middlewares
-app.use(cors()); // Allow cross-origin requests
-app.use(express.json()); // Parse JSON bodies
+// Middleware
+app.use(cors());               // Enable CORS for cross-origin requests
+app.use(express.json());       // Parse JSON bodies in requests
 
-// Test API route
+// Root route (basic test)
 app.get('/', (req, res) => {
   res.send('🎶 Vibe-Stream Backend is running!');
 });
 
-// Example music list API (dummy data)
+// Music list API route (dummy song data)
 app.get('/api/music', (req, res) => {
   const songs = [
     { id: 1, title: 'Kesariya', artist: 'Arijit Singh' },
@@ -25,10 +25,10 @@ app.get('/api/music', (req, res) => {
   res.json(songs);
 });
 
-// Start server
+// Start the server
 app.listen(PORT, () => {
   console.log(`🎵 Server started on http://localhost:${PORT}`);
 });
 
-// Export app (for future testing if needed)
+// Export app (for future testing or advanced usage)
 module.exports = app;
