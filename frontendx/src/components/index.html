@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spotify‑style Audio Player</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="player-container">
+    <input type="file" id="fileInput" accept="audio/*" multiple>
+    <div class="player">
+      <img id="coverImg" class="cover" src="" alt="Cover">
+      <div class="track-info">
+        <div id="trackTitle">No Track</div>
+      </div>
+      <div class="controls">
+        <button id="prev">⏮</button>
+        <button id="playPause">▶️</button>
+        <button id="next">⏭</button>
+      </div>
+      <div class="progress-container" id="timeline">
+        <div class="progress" id="progress"></div>
+      </div>
+      <div class="time-info">
+        <span id="current">00:00</span>/<span id="duration">00:00</span>
+      </div>
+      <audio id="audio"></audio>
+    </div>
+  </div>
+  <script src="server.js"></script>
+</body>
+</html>
