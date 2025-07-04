@@ -1,46 +1,64 @@
 import React, { useEffect, useState } from "react";
-import "./browse.css";  // ✅ make sure this line is added
+import "./browse.css";
 
 function Browse() {
   const [songs, setSongs] = useState([]);
+  const [offset, setOffset] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  const fetchSongs = () => {
+    setLoading(true);
+    fetch(`https://api.jamendo.com/v3.0/tracks/?client_id=a600df40&format=json&limit=10&offset=${offset}&order=popularity_total`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.results.length > 0) {
+          setSongs((prev) => [...prev, ...data.results]);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching songs:", err);
+        setLoading(false);
+      });
+  };
 
   useEffect(() => {
-    fetch("https://itunes.apple.com/search?term=kesariya&media=music&limit=5")
-      .then((res) => res.json())
-      .then((data) => setSongs(data.results))
-      .catch((err) => console.error("Error fetching songs:", err));
-  }, []);
+    fetchSongs();
+  }, [offset]);
+
+  const loadMore = () => {
+    setOffset((prev) => prev + 10);
+  };
 
   return (
     <div className="browse-container">
-      <h2 className="browse-title">🎶 Browse Free Music (iTunes API)</h2>
+      <h2 className="browse-title">🎶 Browse Free Music (Jamendo API)</h2>
+
       {songs.length > 0 ? (
         <div className="song-list">
           {songs.map((song) => (
-            <div key={song.trackId} className="song-card">
-              <img src={song.artworkUrl100} alt={song.trackName} />
-              <div className="song-title">{song.trackName}</div>
-              <p style={{ marginBottom: "10px", color: "#f8f8f2" }}>
-                by {song.artistName}
-              </p>
-              <audio controls className="audio-player">
-                <source src={song.previewUrl} type="audio/mpeg" />
-              </audio>
+            <div key={song.id} className="song-card">
+              <img src={song.album_image} alt={song.name} />
+              <div className="song-title">{song.name}</div>
+              <div>{song.artist_name}</div>
+              <audio controls src={song.audio} className="audio-player"></audio>
               <a
-                href={song.previewUrl}
+                href={song.audio}
                 download
                 className="download-btn"
               >
-                Download Preview
+                ⬇️ Download
               </a>
             </div>
           ))}
         </div>
       ) : (
-        <p style={{ color: "#8be9fd", textAlign: "center", marginTop: "30px" }}>
-          Loading songs...
-        </p>
+        loading ? <p>Loading songs...</p> : <p>No songs found. Try again later.</p>
       )}
+
+      <button onClick={loadMore} className="download-btn" style={{ marginTop: "30px" }}>
+        Load More Songs
+      </button>
     </div>
   );
 }
