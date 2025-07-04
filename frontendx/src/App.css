@@ -1,4 +1,21 @@
 /* Base App container */
+body.dark {
+  --bg-color: #000;
+  --text-color: #f8f8f2;
+  --card-bg: #181818;
+  --accent-color: #50fa7b;
+  --secondary-text-color: #8be9fd;
+}
+
+body.light {
+  --bg-color: #f8f8f2;
+  --text-color: #000;
+  --card-bg: #ffffff;
+  --accent-color: #3ddc7c;
+  --secondary-text-color: #333;
+}
+
+
 .App {
   text-align: center;
   min-height: 100vh;
@@ -100,4 +117,31 @@
 .dashboard-content {
   font-size: 1.2rem;
   color: #f8f8f2;
+}
+/* Dark Theme (default) */
+body.dark, .app-container.dark, .main-dashboard.dark, .loader-screen.dark {
+  background-color: #000;
+  color: #f8f8f2;
+}
+
+/* Light Theme */
+body.light, .app-container.light, .main-dashboard.light, .loader-screen.light {
+  background-color: #f8f8f2;
+  color: #000;
+}
+
+.theme-toggle-btn {
+  background: none;
+  border: 2px solid #50fa7b;
+  color: #50fa7b;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-left: 20px;
+  transition: background 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+  background: #50fa7b;
+  color: #000;
 }

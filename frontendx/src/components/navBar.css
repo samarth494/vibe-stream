@@ -2,15 +2,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #111;
-  color: #fff;
+  background-color: var(--card-bg);
+  color: var(--text-color);
   padding: 15px 30px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
+  color: var(--text-color);
 }
 
 .nav-links {
@@ -18,15 +19,16 @@
   display: flex;
   gap: 25px;
   margin: 0;
+  padding: 0;
 }
 
 .nav-links li a {
-  color: #ddd;
+  color: var(--secondary-text-color);
   text-decoration: none;
   font-size: 1rem;
   transition: color 0.3s;
 }
 
 .nav-links li a:hover {
-  color: #1db954;
+  color: var(--accent-color);
 }

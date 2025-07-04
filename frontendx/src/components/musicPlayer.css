@@ -1,6 +1,6 @@
 .music-player {
-  background-color: #181818;
-  color: #fff;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   padding: 50px 20px;
   text-align: center;
   min-height: 90vh;
@@ -20,18 +20,18 @@
 }
 
 .player-controls button {
-  background-color: #1db954;
+  background-color: var(--accent-color);
   border: none;
   padding: 12px 20px;
   border-radius: 50px;
   font-size: 1rem;
-  color: #fff;
+  color: #000;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
 }
 
 .player-controls button:hover {
-  background-color: #1ed760;
+  background-color: #3ddc7c;
   transform: scale(1.05);
 }
 
@@ -45,41 +45,43 @@
 .song-list li {
   list-style: none;
   padding: 10px 0;
-  border-bottom: 1px solid #333;
-  color: #ddd;
+  border-bottom: 1px solid var(--border-color, #333);
+  color: var(--secondary-text-color);
   cursor: pointer;
   transition: color 0.3s;
 }
 
 .song-list li:hover {
-  color: #1db954;
+  color: var(--accent-color);
 }
+
 .nav-button {
   background: none;
   border: none;
-  color: #ddd;
+  color: var(--secondary-text-color);
   font-size: 1rem;
   cursor: pointer;
   transition: color 0.3s;
 }
 
 .nav-button:hover {
-  color: #1db954;
+  color: var(--accent-color);
 }
 
+/* Navbar */
 .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 20px 40px;
-  background-color: #121212;
-  color: #fff;
+  background-color: var(--card-bg);
+  color: var(--text-color);
 }
 
 .logo {
   font-size: 1.8rem;
   font-weight: bold;
-  color: #f8f8f2;
+  color: var(--text-color);
 }
 
 .nav-links {
@@ -95,14 +97,12 @@
 }
 
 .nav-links li a {
-  color: #ddd;
+  color: var(--secondary-text-color);
   text-decoration: none;
   font-size: 1rem;
   transition: color 0.3s;
 }
 
 .nav-links li a:hover {
-  color: #1db954;
+  color: var(--accent-color);
 }
-
-
