@@ -1,0 +1,17 @@
+/* src/components/SearchBar.css */
+.search-bar-container {
+  margin: 20px auto;
+  width: 60%;
+  text-align: center;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 18px;
+  font-size: 16px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  outline: none;
+  background-color: #1c1c1c;
+  color: #fff;
+}

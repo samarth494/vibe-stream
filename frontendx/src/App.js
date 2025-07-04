@@ -45,6 +45,7 @@ function App() {
           }}
         >
           <NavBar /> {/* ✅ NavBar added here */}
+          <SearchBar onSearch={(query) => console.log("Searching for:", query)} /> 
           <MusicPlayer />
         </div>
       )}
