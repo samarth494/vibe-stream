@@ -32,7 +32,7 @@ function Browse() {
 
   return (
     <div className="browse-container">
-      <h2 className="browse-title">🎶 Browse Free Music (Jamendo API)</h2>
+      <h2 className="browse-title">🎶 Browse Free Music</h2>
 
       {songs.length > 0 ? (
         <div className="song-list">
