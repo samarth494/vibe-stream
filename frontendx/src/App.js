@@ -1,15 +1,14 @@
-
-
 import { useEffect, useState } from "react";
-import logo from "./assets.png"; // your original logo file
+import logo from "./assets.png";
 import "./App.css";
-
+import SearchBar from "./components/searchBar";
+import MusicPlayer from "./components/musicPlayer";  // ✅ yaha import
 function App() {
   const [step, setStep] = useState(0);
 
   useEffect(() => {
-    const timer1 = setTimeout(() => setStep(1), 7000);  
-    const timer2 = setTimeout(() => setStep(2), 10000); 
+    const timer1 = setTimeout(() => setStep(1), 7000);
+    const timer2 = setTimeout(() => setStep(2), 10000);
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
@@ -28,15 +27,21 @@ function App() {
           </div>
         </div>
       )}
+
       {step === 1 && (
         <div className="main-dashboard">
           <h1>Welcome to TUNE WAVE 🎧</h1>
         </div>
       )}
+
       {step === 2 && (
-        <div style={{ height: "100vh", width: "100vw", backgroundColor: "black" }}></div>
+        <div style={{ height: "100vh", width: "100vw", backgroundColor: "black", padding: "20px" }}>
+          {/* Yaha Music Player dal diya */}
+          <MusicPlayer />
+        </div>
       )}
     </div>
   );
 }
+
 export default App;

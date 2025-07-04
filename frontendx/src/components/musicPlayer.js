@@ -1,20 +1,22 @@
-import React, { useRef, useState } from 'react';
-import './MusicPlayer.css'; // isme styling dal lena
+import './musicPlayer.css'; // isme styling dal lena
+import React, { useEffect, useRef, useState } from 'react';
 
 const MusicPlayer = () => {
   const [playlist, setPlaylist] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
+const handleFileChange = (e) => {
+  const files = Array.from(e.target.files);
+  setPlaylist(files);
+  setCurrentIndex(0);
+};
 
-  const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
-    setPlaylist(files);
-    setCurrentIndex(0);
-    if (files.length > 0) {
-      audioRef.current.load();
-    }
-  };
+useEffect(() => {
+  if (playlist.length > 0 && audioRef.current) {
+    audioRef.current.load();
+  }
+}, [playlist]);
 
   const loadTrack = (index) => {
     setCurrentIndex(index);
