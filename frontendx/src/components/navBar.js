@@ -1,19 +1,20 @@
-import React from 'react';
-import './navBar.css';  // Don't forget to create this CSS file for styling
+import React from "react";
+import { Link } from "react-router-dom";
+import "./musicPlayer.css";
 
-const NavBar = () => {
+function NavBar() {
   return (
-    <nav className="navbar">
-      <div className="logo">🎶 Vibe-Stream</div>
+    <div className="navbar">
+      <div className="logo">🎵 TUNE WAVE</div>
       <ul className="nav-links">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Browse</a></li>
-        <li><a href="#">My Playlist</a></li>
-        <li><a href="#">Upload</a></li>
-        <li><a href="#">About</a></li>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/browse">Browse</Link></li>
+        <li><Link to="#">My Playlist</Link></li>
+        <li><Link to="#">Upload</Link></li>
+        <li><Link to="#">About</Link></li>
       </ul>
-    </nav>
+    </div>
   );
-};
+}
 
 export default NavBar;

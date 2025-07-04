@@ -1,19 +1,21 @@
+/* Base App container */
 .App {
   text-align: center;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #000;
   color: #fff;
   font-family: 'Segoe UI', sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
+/* Loader Screen */
 .loader-screen {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  height: 100vh;
   animation: fadeIn 2s ease-in-out;
+  background-color: #000;
 }
 
 .logo {
@@ -27,24 +29,6 @@
   font-size: 1.5rem;
   color: #8be9fd;
 }
-
-.main-dashboard {
-  font-size: 2rem;
-  animation: fadeIn 1s ease-in;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 0.7; }
-  50% { transform: scale(1.05); opacity: 1; }
-  100% { transform: scale(1); opacity: 0.7; }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.98); }
-  to { opacity: 1; transform: scale(1); }
-}  
-
-
 
 .loading-animation {
   display: flex;
@@ -73,6 +57,17 @@
   animation-delay: 0;
 }
 
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.7; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
 @keyframes bounce {
   0%, 80%, 100% {
     transform: scale(0);
@@ -80,5 +75,29 @@
   40% {
     transform: scale(1);
   }
-}   
+}
 
+
+
+.main-dashboard {
+  font-size: 2rem;
+  animation: fadeIn 1s ease-in;
+  background-color: #181818;
+  color: #fff;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.dashboard-logo {
+  width: 200px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.dashboard-content {
+  font-size: 1.2rem;
+  color: #f8f8f2;
+}
