@@ -1,0 +1,82 @@
+.playlist-container {
+  padding: 40px;
+  max-width: 1000px;
+  margin: auto;
+  color: white;
+  background-color: #121212;
+  border-radius: 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.create-section {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.create-section input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: #1e1e1e;
+  color: white;
+}
+
+.create-section button {
+  background-color: #00ff94;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.playlist-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.playlist-card {
+  background-color: #1b1b1b;
+  padding: 20px;
+  border-radius: 15px;
+  width: 200px;
+  box-shadow: 0 0 10px #00ff94;
+  cursor: pointer;
+}
+
+.playlist-card h3 {
+  margin: 0 0 10px 0;
+  color: #00ff94;
+}
+
+.playlist-card button {
+  margin-top: 10px;
+  background-color: crimson;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.playlist-details {
+  margin-top: 40px;
+  background-color: #181818;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.playlist-details ul {
+  list-style: none;
+  padding: 0;
+}
+
+.playlist-details li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #333;
+}

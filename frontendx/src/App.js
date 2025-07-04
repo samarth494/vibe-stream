@@ -7,6 +7,7 @@ import MusicPlayer from "./components/musicPlayer";
 import NavBar from "./components/navBar";
 import Browse from "./components/browse";
 import Home from "./components/home";
+import PlayListPage from "./components/PlayListPage";
 
 function App() {
   const [step, setStep] = useState(0);
@@ -68,6 +69,8 @@ useEffect(() => {
               </>
             }
           />
+<Route path="/playlist" element={<PlayListPage />} />
+
         </Routes>
       </div>
     </Router>

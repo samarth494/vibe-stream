@@ -9,7 +9,7 @@ function NavBar({ toggleTheme, theme }) {
       <ul className="nav-links">
         <li><Link to="/">Home</Link></li>
         <li><Link to="/browse">Browse</Link></li>
-        <li><Link to="#">My Playlist</Link></li>
+<li><Link to="/playlist">🎶 Playlists</Link></li>
         <li><Link to="#">Upload</Link></li>
         <li><Link to="#">About</Link></li>
         <button onClick={toggleTheme} className="theme-toggle-btn">
