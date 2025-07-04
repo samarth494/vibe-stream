@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import logo from "./assets.png";
 import "./App.css";
 import SearchBar from "./components/searchBar";
-import MusicPlayer from "./components/musicPlayer";  // ✅ yaha import
+import MusicPlayer from "./components/musicPlayer";
+import NavBar from "./components/navBar"; 
 function App() {
   const [step, setStep] = useState(0);
 
@@ -35,8 +36,15 @@ function App() {
       )}
 
       {step === 2 && (
-        <div style={{ height: "100vh", width: "100vw", backgroundColor: "black", padding: "20px" }}>
-          {/* Yaha Music Player dal diya */}
+        <div
+          style={{
+            height: "100vh",
+            width: "100vw",
+            backgroundColor: "black",
+            padding: "20px",
+          }}
+        >
+          <NavBar /> {/* ✅ NavBar added here */}
           <MusicPlayer />
         </div>
       )}
