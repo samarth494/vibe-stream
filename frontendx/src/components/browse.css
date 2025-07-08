@@ -1,3 +1,7 @@
+
+
+
+
 .browse-container {
   padding: 40px;
   text-align: center;
@@ -76,4 +80,57 @@
     opacity: 1;
     transform: scale(1);
   }
+}
+
+.song-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+  width: 100%;
+  align-items: stretch;
+}
+
+.like-btn {
+  background-color: #222;
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.like-btn:hover {
+  background-color: var(--accent-color);
+  color: black;
+}
+
+.like-btn.liked {
+  background-color: #ff0080;
+  color: white;
+  border-color: #ff0080;
+}
+
+.playlist-select {
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  background-color: #1e1e1e;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.95rem;
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+}
+
+.playlist-select option {
+  background-color: #2a2a2a;
+  color: white;
 }

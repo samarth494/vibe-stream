@@ -12,9 +12,7 @@ function NavBar({ toggleTheme, theme }) {
         <li><Link to="/browse">Browse</Link></li>
         <li><Link to="/playlist">🎶 Playlists</Link></li>
         <li><Link to="/upload">Upload</Link></li> {/* Upload button */}
-        <button onClick={toggleTheme} className="theme-toggle-btn">
-          {theme === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode"}
-        </button>
+      
       </ul>
     </div>
   );
