@@ -1,22 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import logo from "./assets.png";
-import "./App.css";
+import "./App.css"; // Your provided CSS file
 import SearchBar from "./components/searchBar";
 import MusicPlayer from "./components/musicPlayer";
 import NavBar from "./components/navBar";
 import Browse from "./components/browse";
 import Home from "./components/home";
 import PlayListPage from "./components/PlayListPage";
+import UploadPage from "./components/UploadPage"; // Import the new UploadPage component
 
 function App() {
   const [step, setStep] = useState(0);
-  const [theme, setTheme] = useState("dark");  // 👈 theme state
+  const [theme, setTheme] = useState("dark"); // Default theme is dark
 
+  // Function to toggle between dark and light themes
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
+  useEffect(() => {
+    document.body.className = theme; // Apply the theme class to body tag
+  }, [theme]);
+
+  // Handle loading screens and transitions
   useEffect(() => {
     const timer1 = setTimeout(() => setStep(1), 4000);
     const timer2 = setTimeout(() => setStep(2), 7000);
@@ -25,10 +32,8 @@ function App() {
       clearTimeout(timer2);
     };
   }, []);
-useEffect(() => {
-  document.body.className = theme;   // ✅ Apply theme class to body tag
-}, [theme]);
 
+  // Conditional rendering based on loading steps
   if (step === 0) {
     return (
       <div className="loader-screen">
@@ -53,33 +58,22 @@ useEffect(() => {
   }
 
   if (step === 2) {
-  return (
-    <Router>
-      <div className={`app-container ${theme}`} style={{ width: "100vw", padding: "20px" }}>
+    return (
+      <Router>
+        <div className={`app-container ${theme}`} style={{ width: "100vw", padding: "20px" }}>
           <NavBar toggleTheme={toggleTheme} theme={theme} />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/browse" element={<Browse />} />
-          <Route
-            path="/player"
-            element={
-              <>
-                <SearchBar onSearch={(query) => console.log("Searching for:", query)} />
-                <MusicPlayer />
-              </>
-            }
-          />
-<Route path="/playlist" element={<PlayListPage />} />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/browse" element={<Browse />} />
+            <Route path="/playlist" element={<PlayListPage />} />
+            <Route path="/upload" element={<UploadPage />} /> {/* Add the Upload page route */}
+          </Routes>
+        </div>
+      </Router>
+    );
+  }
 
-        </Routes>
-      </div>
-    </Router>
-  );
-}
-
-
-  // Fallback if no step matched
-  return null;
+  return null; // Fallback if no step matched
 }
 
 export default App;
