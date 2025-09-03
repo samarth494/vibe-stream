@@ -1,29 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import logo from "./assets.png";
-import "./App.css"; // Your provided CSS file
-import SearchBar from "./components/searchBar";
-import MusicPlayer from "./components/musicPlayer";
+import "./App.css";
 import NavBar from "./components/navBar";
 import Browse from "./components/browse";
 import Home from "./components/home";
 import PlayListPage from "./components/PlayListPage";
-import UploadPage from "./components/UploadPage"; // Import the new UploadPage component
+import UploadPage from "./components/UploadPage";
+import MusicPlayer from "./components/musicPlayer";
 
 function App() {
   const [step, setStep] = useState(0);
-  const [theme, setTheme] = useState("dark"); // Default theme is dark
+  const [theme, setTheme] = useState("dark");
+  const [currentSong, setCurrentSong] = useState(null); // 🎵 currently playing song
 
-  // Function to toggle between dark and light themes
+  // Toggle between dark and light themes
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
 
+  // Apply theme class to <body>
   useEffect(() => {
-    document.body.className = theme; // Apply the theme class to body tag
+    document.body.className = theme;
   }, [theme]);
 
-  // Handle loading screens and transitions
+  // Loading screens with timers
   useEffect(() => {
     const timer1 = setTimeout(() => setStep(1), 4000);
     const timer2 = setTimeout(() => setStep(2), 7000);
@@ -33,7 +34,7 @@ function App() {
     };
   }, []);
 
-  // Conditional rendering based on loading steps
+  // Step 0 → Loader
   if (step === 0) {
     return (
       <div className="loader-screen">
@@ -47,6 +48,7 @@ function App() {
     );
   }
 
+  // Step 1 → Intro dashboard
   if (step === 1) {
     return (
       <div className="main-dashboard">
@@ -57,23 +59,40 @@ function App() {
     );
   }
 
+  // Step 2 → Actual app
   if (step === 2) {
     return (
       <Router>
-        <div className={`app-container ${theme}`} style={{ width: "100vw", padding: "20px" }}>
+        <div
+          className={`app-container ${theme}`}
+          style={{ width: "100vw", padding: "20px" }}
+        >
           <NavBar toggleTheme={toggleTheme} theme={theme} />
+
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/browse" element={<Browse />} />
-            <Route path="/playlist" element={<PlayListPage />} />
-            <Route path="/upload" element={<UploadPage />} /> {/* Add the Upload page route */}
+            <Route
+              path="/browse"
+              element={<Browse onPlaySong={setCurrentSong} />}
+            />
+            <Route
+              path="/playlist"
+              element={<PlayListPage onPlaySong={setCurrentSong} />}
+            />
+            <Route
+              path="/upload"
+              element={<UploadPage onPlaySong={setCurrentSong} />}
+            />
           </Routes>
+
+          {/* 🎵 Global Music Player pinned at bottom */}
+          <MusicPlayer currentSong={currentSong} />
         </div>
       </Router>
     );
   }
 
-  return null; // Fallback if no step matched
+  return null; // fallback
 }
 
 export default App;

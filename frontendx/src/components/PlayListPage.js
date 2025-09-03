@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./PlayListPage.css";
+import "../components/PlayListPage.css";
 
-function PlaylistPage() {
+function PlaylistPage({ onPlaySong }) {
   const [playlists, setPlaylists] = useState([]);
   const [newPlaylistName, setNewPlaylistName] = useState("");
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
@@ -124,10 +124,20 @@ function PlaylistPage() {
           ) : (
             <ul>
               {selectedPlaylist.songs.map((song, idx) => (
-                <li key={idx}>
+                <li
+                  key={idx}
+                  onClick={() => onPlaySong(song)} // 🔥 send song to global player
+                  style={{ cursor: "pointer" }}
+                >
                   🎵 {song.name || song.title} — {song.duration || 0}s
                   {selectedPlaylist.id > 0 && (
-                    <button onClick={() => removeSongFromPlaylist(selectedPlaylist.id, idx)}>
+                    <button
+                      className="remove-btn"
+                      onClick={(e) => {
+                        e.stopPropagation(); // prevent playing when removing
+                        removeSongFromPlaylist(selectedPlaylist.id, idx);
+                      }}
+                    >
                       ❌
                     </button>
                   )}

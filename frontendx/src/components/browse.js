@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./browse.css";
 
-function Browse() {
+function Browse({ onPlaySong }) { // ⬅️ accept onPlaySong from App
   const [songs, setSongs] = useState([]);
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -66,7 +66,10 @@ function Browse() {
         const alreadyAdded = p.songs.some((s) => s.id === song.id);
         if (!alreadyAdded) {
           const newSongs = [...p.songs, { ...song, fromDevice: false }];
-          const duration = newSongs.reduce((sum, s) => sum + (s.duration || 0), 0);
+          const duration = newSongs.reduce(
+            (sum, s) => sum + (s.duration || 0),
+            0
+          );
           return { ...p, songs: newSongs, duration };
         }
       }
@@ -79,7 +82,6 @@ function Browse() {
   };
 
   return (
-    
     <div className="browse-container">
       <h2 className="browse-title">🎧 Browse Free Music</h2>
 
@@ -90,22 +92,38 @@ function Browse() {
           {songs.map((song) => {
             const isLiked = likedSongs.some((s) => s.id === song.id);
             return (
-              <div key={song.id} className="song-card">
+              <div
+                key={song.id}
+                className="song-card"
+                onClick={() =>
+                  onPlaySong({
+                    id: song.id,
+                    name: song.name,
+                    artist: song.artist_name,
+                    url: song.audio,   // ✅ FIX: use url for MusicPlayer
+                    duration: song.duration,
+                  })
+                }
+                style={{ cursor: "pointer" }}
+              >
                 <img src={song.album_image} alt={song.name} />
                 <div className="song-title">{song.name}</div>
                 <div>{song.artist_name}</div>
-                <audio controls src={song.audio} className="audio-player"></audio>
 
                 <div className="song-actions">
                   <button
                     className={`like-btn ${isLiked ? "liked" : ""}`}
-                    onClick={() => toggleLike(song)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleLike(song);
+                    }}
                   >
                     {isLiked ? "💖 Liked" : "🤍 Like"}
                   </button>
 
                   <select
                     className="playlist-select"
+                    onClick={(e) => e.stopPropagation()}
                     onChange={(e) => {
                       if (e.target.value) {
                         addToPlaylist(e.target.value, song);
@@ -122,7 +140,12 @@ function Browse() {
                   </select>
                 </div>
 
-                <a href={song.audio} download className="download-btn">
+                <a
+                  href={song.audio}
+                  download
+                  className="download-btn"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   ⬇ Download
                 </a>
               </div>
@@ -135,7 +158,11 @@ function Browse() {
         <p>No songs found. Try again later.</p>
       )}
 
-      <button onClick={loadMore} className="download-btn" style={{ marginTop: "30px" }}>
+      <button
+        onClick={loadMore}
+        className="download-btn"
+        style={{ marginTop: "30px" }}
+      >
         Load More Songs
       </button>
     </div>

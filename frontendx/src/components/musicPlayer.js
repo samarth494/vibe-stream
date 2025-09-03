@@ -1,31 +1,35 @@
-import './musicPlayer.css'; // isme styling dal lena
-import React, { useEffect, useRef, useState } from 'react';
+import "./musicPlayer.css";
+import React, { useEffect, useRef, useState } from "react";
 
-const MusicPlayer = () => {
-  const [playlist, setPlaylist] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
+const MusicPlayer = ({ currentSong }) => {
   const audioRef = useRef(null);
-const handleFileChange = (e) => {
-  const files = Array.from(e.target.files);
-  setPlaylist(files);
-  setCurrentIndex(0);
-};
+  const [isPlaying, setIsPlaying] = useState(false);
 
-useEffect(() => {
-  if (playlist.length > 0 && audioRef.current) {
-    audioRef.current.load();
-  }
-}, [playlist]);
-
-  const loadTrack = (index) => {
-    setCurrentIndex(index);
-    audioRef.current.load();
-    audioRef.current.play();
-    setIsPlaying(true);
+  // get playable URL depending on object type
+  const getSongUrl = (song) => {
+    if (!song) return null;
+    if (song.url) return song.url;              // songs from API
+    if (song.audio) return song.audio;          // Jamendo / other APIs
+    if (song.preview) return song.preview;      // preview links
+    if (song.src) return song.src;              // custom src
+    if (song instanceof File) return URL.createObjectURL(song); // local file
+    return null;
   };
 
+  const songUrl = getSongUrl(currentSong);
+
+  useEffect(() => {
+    if (songUrl && audioRef.current) {
+      audioRef.current.src = songUrl; // set correct source
+      audioRef.current
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch((err) => console.log("Autoplay blocked:", err));
+    }
+  }, [songUrl]);
+
   const togglePlayPause = () => {
+    if (!audioRef.current) return;
     if (audioRef.current.paused) {
       audioRef.current.play();
       setIsPlaying(true);
@@ -35,42 +39,19 @@ useEffect(() => {
     }
   };
 
-  const handlePrev = () => {
-    const prevIndex = (currentIndex - 1 + playlist.length) % playlist.length;
-    loadTrack(prevIndex);
-  };
-
-  const handleNext = () => {
-    const nextIndex = (currentIndex + 1) % playlist.length;
-    loadTrack(nextIndex);
-  };
-
-  const formatTime = (time) => {
-    const minutes = Math.floor(time / 60).toString().padStart(2, '0');
-    const seconds = Math.floor(time % 60).toString().padStart(2, '0');
-    return `${minutes}:${seconds}`;
-  };
+  if (!currentSong) {
+    return <div className="music-player">🎧 Select a song to play</div>;
+  }
 
   return (
     <div className="music-player">
-      <h2>🎵 Music Player</h2>
-      <input type="file" multiple accept="audio/*" onChange={handleFileChange} />
-
-      {playlist.length > 0 && (
-        <>
-          <audio ref={audioRef} onEnded={handleNext}>
-            <source src={URL.createObjectURL(playlist[currentIndex])} />
-          </audio>
-
-          <h3>{playlist[currentIndex].name.replace(/\.(mp3|wav|ogg)$/i, '')}</h3>
-
-          <div className="controls">
-            <button onClick={handlePrev}>⏮️</button>
-            <button onClick={togglePlayPause}>{isPlaying ? '⏸️' : '▶️'}</button>
-            <button onClick={handleNext}>⏭️</button>
-          </div>
-        </>
-      )}
+      <h3>🎵 Now Playing: {currentSong.name || currentSong.title || "Untitled"}</h3>
+      <audio ref={audioRef} onEnded={() => setIsPlaying(false)} controls />
+      <div className="controls">
+        <button onClick={togglePlayPause}>
+          {isPlaying ? "⏸️ Pause" : "▶️ Play"}
+        </button>
+      </div>
     </div>
   );
 };

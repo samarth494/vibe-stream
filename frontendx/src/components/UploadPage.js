@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import "./UploadPage.css"
 
-const UploadPage = () => {
+const UploadPage = ({ onPlaySong }) => {
   const [uploadedTracks, setUploadedTracks] = useState([])
   const [currentPlaying, setCurrentPlaying] = useState(null)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -146,20 +146,25 @@ const UploadPage = () => {
     }
   }
 
-  const playTrack = (track) => {
-    if (currentPlaying && currentPlaying.id === track.id) {
-      if (isPlaying) {
-        audioRef.current.pause()
-        setIsPlaying(false)
-      } else {
-        audioRef.current.play()
-        setIsPlaying(true)
-      }
+ // Update playTrack to also call global onPlaySong
+const playTrack = (track) => {
+  if (currentPlaying && currentPlaying.id === track.id) {
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
     } else {
-      setCurrentPlaying(track)
-      setIsPlaying(true)
+      audioRef.current.play();
+      setIsPlaying(true);
+      if (onPlaySong) onPlaySong(track);   // 🔥 notify global player when resuming
     }
+  } else {
+    setCurrentPlaying(track);
+    setIsPlaying(true);
+    if (onPlaySong) onPlaySong(track);     // 🔥 notify global player when new track is clicked
   }
+};
+
+
 
   const togglePlayPause = () => {
     if (isPlaying) {
